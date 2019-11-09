@@ -15,13 +15,21 @@
       <div class="__summary">
         <div class="__content">
           <div class="__status box">
-            <p v-if="!photo.isLoading">📸 Dream completed<br>Has it been a good dream?</p>
-            <p v-else>💭 Dreaming... this will take a moment</p>
+            <p v-if="!photo.isLoading">
+              📸 Dream completed<br>Has it been a good dream?
+            </p>
+            <p v-else>
+              💭 Dreaming... this will take a moment
+            </p>
           </div>
 
           <div class="__photos">
-            <app-photo :src="sourceDataURL">Original</app-photo>
-            <app-photo :src="croppedDataURL">Cropped</app-photo>
+            <app-photo :src="sourceDataURL">
+              Original
+            </app-photo>
+            <app-photo :src="croppedDataURL">
+              Cropped
+            </app-photo>
           </div>
 
           <div v-show="!photo.isLoading" class="__actions">
@@ -31,17 +39,25 @@
                 <span v-else>Results</span>
               </button>
 
-              <button type="button" class="button is-danger" @click.prevent="rerun">Rerun all</button>
+              <button type="button" class="button is-danger" @click.prevent="rerun">
+                Rerun all
+              </button>
             </div>
 
             <div class="buttons">
-              <button type="button" class="button" @click.prevent="openFolder">Open Folder</button>
-              <nuxt-link to="/" class="button">Another photo</nuxt-link>
+              <button type="button" class="button" @click.prevent="openFolder">
+                Open Folder
+              </button>
+              <nuxt-link to="/" class="button">
+                Another photo
+              </nuxt-link>
             </div>
           </div>
 
           <div v-show="photo.isLoading" class="__actions justify-center items-center">
-            <button type="button" class="button is-danger" @click.prevent="cancel">Cancel</button>
+            <button type="button" class="button is-danger" @click.prevent="cancel">
+              Cancel
+            </button>
           </div>
         </div>
       </div>
@@ -66,7 +82,7 @@ export default {
     isPreferencesVisible: false,
 
     sourceDataURL: undefined,
-    croppedDataURL: undefined
+    croppedDataURL: undefined,
   }),
 
   computed: {
@@ -86,7 +102,7 @@ export default {
      */
     deviceName() {
       return $settings.processing.device
-    }
+    },
   },
 
   async created() {
@@ -132,8 +148,8 @@ export default {
      */
     togglePreferences() {
       this.isPreferencesVisible = !this.isPreferencesVisible
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -47,7 +47,7 @@ module.exports = {
       ext,
       dir,
       mimetype,
-      size
+      size,
     }
   },
 
@@ -132,7 +132,7 @@ module.exports = {
 
       debug({
         extracted,
-        entryStream
+        entryStream,
       })
 
       bus.emit('progress', null, progress)
@@ -163,16 +163,16 @@ module.exports = {
   download(url, options = {}) {
     const bus = new EventBus()
 
+    // eslint-disable-next-line no-param-reassign
     options = {
       // showSaveAs: false,
       directory: api.app.getPath('downloads'),
       fileName: undefined,
-      ...options
+      ...options,
     }
 
-    const fileName =
-      options.fileName ||
-      path
+    const fileName = options.fileName
+      || path
         .basename(url)
         .split('?')[0]
         .split('#')[0]
@@ -192,13 +192,13 @@ module.exports = {
         url,
         timeout: 5000,
         responseType: 'stream',
-        maxContentLength: -1
+        maxContentLength: -1,
       })
       .then((response) => {
         const contentLength = response.data.headers['content-length'] || -1
         const mbTotal = filesize(contentLength, {
           exponent: 2,
-          output: 'object'
+          output: 'object',
         }).value
 
         const output = fs.createWriteStream(filePath)
@@ -220,7 +220,7 @@ module.exports = {
           filePath,
           contentLength,
           mbTotal,
-          exists: fs.existsSync(filePath)
+          exists: fs.existsSync(filePath),
         })
 
         output.on('error', (err) => {
@@ -234,24 +234,24 @@ module.exports = {
             const progress = output.bytesWritten / contentLength
             const mbWritten = filesize(output.bytesWritten, {
               exponent: 2,
-              output: 'object'
+              output: 'object',
             }).value
 
             bus.emit('progress', null, {
               progress,
               mbWritten,
-              mbTotal
+              mbTotal,
             })
           } else {
             const mbWritten = filesize(output.bytesWritten, {
               exponent: 2,
-              output: 'object'
+              output: 'object',
             }).value
 
             bus.emit('progress', null, {
               progress: -1,
               mbWritten,
-              mbTotal
+              mbTotal,
             })
           }
         })
@@ -295,5 +295,5 @@ module.exports = {
         reject(err)
       })
     })
-  }
+  },
 }

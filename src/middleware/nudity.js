@@ -13,7 +13,7 @@
  * Pages that include this middleware will only be accessible
  * if the user has selected a photo to transform.
  */
-export default function({ redirect, $nudify }) {
+export default function ({ redirect, $nudify }) {
   if (!$nudify.hasPhoto()) {
     redirect('/')
   }

@@ -36,7 +36,7 @@ export default {
 
     debug('Updater initialized!', {
       dreamtime: this.dreamtime,
-      checkpoints: this.checkpoints
+      checkpoints: this.checkpoints,
     })
-  }
+  },
 }

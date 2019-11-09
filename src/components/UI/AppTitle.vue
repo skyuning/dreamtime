@@ -6,11 +6,14 @@
 
 <style lang="scss">
 .app-title {
-  @apply px-4 py-2 bg-dark shadow flex flex-col justify-center;
-  height: 90px;
+  @apply px-4 bg-darklight-500 shadow flex items-center;
+  position: sticky;
+  top: 0;
+  height: 40px;
 
   .title {
-    @apply font-bold text-white text-xl;
+    @apply text-base text-white pr-3 mr-3;
+    @apply border-r border-darklight-400;
 
     sup {
       @apply text-white;
@@ -18,7 +21,7 @@
   }
 
   .subtitle {
-    @apply text-lg text-generic-300;
+    @apply text-gray-400;
   }
 
   a {

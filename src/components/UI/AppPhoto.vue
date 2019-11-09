@@ -1,6 +1,6 @@
 <template>
   <figure class="app-photo">
-    <img :src="src" />
+    <img :src="src">
 
     <p class="app-photo-label">
       <slot />
@@ -13,9 +13,9 @@ export default {
   props: {
     src: {
       type: undefined,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 

@@ -8,16 +8,22 @@
           <form-inline-field
             label="Number of executions"
             hint="The transformation process will be repeated this number of times and you can select the one that has the best result.">
-            <input v-model="preferences.executions" type="number" min="1" class="input" />
+            <input v-model="preferences.executions" type="number" min="1" class="input">
           </form-inline-field>
 
           <form-inline-field
             label="Boobs Size"
             hint="The algorithm will try to create the indicated size">
             <select v-model="preferences.boobsSize" class="input">
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="big">Big</option>
+              <option value="small">
+                Small
+              </option>
+              <option value="medium">
+                Medium
+              </option>
+              <option value="big">
+                Big
+              </option>
             </select>
           </form-inline-field>
 
@@ -25,10 +31,18 @@
             label="Pubic Hair Size"
             hint="The algorithm will try to create the indicated size">
             <select v-model="preferences.pubicHairSize" class="input">
-              <option value="none">None</option>
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="big">Big</option>
+              <option value="none">
+                None
+              </option>
+              <option value="small">
+                Small
+              </option>
+              <option value="medium">
+                Medium
+              </option>
+              <option value="big">
+                Big
+              </option>
             </select>
           </form-inline-field>
 
@@ -36,15 +50,23 @@
             label="Use Custom Mask"
             hint="(Advanced) You can edit the masks of the photo before processing.">
             <select v-model="preferences.useCustomMask" class="input">
-              <option :value="false">Disabled</option>
-              <option :value="true">Enabled</option>
+              <option :value="false">
+                Disabled
+              </option>
+              <option :value="true">
+                Enabled
+              </option>
             </select>
           </form-inline-field>
         </section>
 
         <div class="buttons">
-          <nuxt-link to="/nudity/crop" class="button is-danger">Back</nuxt-link>
-          <nuxt-link to="/nudity/results" class="button is-success">Nudify!</nuxt-link>
+          <nuxt-link to="/nudity/crop" class="button is-danger">
+            Back
+          </nuxt-link>
+          <nuxt-link to="/nudity/results" class="button is-success">
+            Nudify!
+          </nuxt-link>
         </div>
       </div>
 
@@ -70,12 +92,12 @@ export default {
   middleware: 'nudity',
 
   data: () => ({
-    preferences: {}
+    preferences: {},
   }),
 
   created() {
     this.preferences = this.$nudity.modelPhoto.transformation.preferences
-  }
+  },
 }
 </script>
 

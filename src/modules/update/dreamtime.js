@@ -87,8 +87,8 @@ export default class extends Base {
     const notification = new Notification(
       `🎉 DreamTime ${this.latest.tag_name} available!`,
       {
-        body: 'A new version of DreamTime is available for download.'
-      }
+        body: 'A new version of DreamTime is available for download.',
+      },
     )
 
     notification.onclick = () => {

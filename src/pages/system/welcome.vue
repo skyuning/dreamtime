@@ -1,7 +1,11 @@
 <template>
   <div class="welcome">
-    <h1 class="welcome-title">Welcome to {{ $dream.name }}!</h1>
-    <h2 class="welcome-subtitle">Before starting we would like to remind you:</h2>
+    <h1 class="welcome-title">
+      Welcome to {{ $dream.name }}!
+    </h1>
+    <h2 class="welcome-subtitle">
+      Before starting we would like to remind you:
+    </h2>
 
     <ul class="welcome-list">
       <li>💘 We (DreamNet) are very grateful that you use our application, we will continue working to improve it!</li>
@@ -12,7 +16,9 @@
     </ul>
 
     <div class="welcome-buttons">
-      <button type="button" class="button" @click="next">Understood!</button>
+      <button type="button" class="button" @click="next">
+        Understood!
+      </button>
     </div>
   </div>
 </template>
@@ -23,8 +29,8 @@ export default {
     next() {
       $settings.welcome = false
       this.$router.push('/')
-    }
-  }
+    },
+  },
 }
 </script>
 

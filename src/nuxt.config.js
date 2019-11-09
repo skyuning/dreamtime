@@ -8,7 +8,7 @@ module.exports = {
    *
    */
   router: {
-    mode: 'hash'
+    mode: 'hash',
   },
 
   /**
@@ -16,7 +16,7 @@ module.exports = {
    */
   server: {
     port: process.env.SERVER_PORT,
-    host: process.env.SERVER_HOST
+    host: process.env.SERVER_HOST,
   },
 
   /*
@@ -27,20 +27,15 @@ module.exports = {
 
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     ],
 
     link: [
-      /* { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' } */
     ],
 
     scripts: [
-      /*
-      {
-        src: 'https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js'
-      }
-      */
-    ]
+
+    ],
   },
 
   /*
@@ -52,30 +47,33 @@ module.exports = {
    ** Global CSS
    */
   css: [
-    '~/assets/css/tailwind.scss',
     '~/assets/css/fonts.scss',
-    '~/assets/css/vendor.scss'
+    '~/assets/css/vendor.scss',
   ],
 
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/boot.client.js', '~/components'],
+  plugins: ['~/plugins/boot.js', '~/plugins/ghost.js', '~/plugins/fontawesome.js', '~/components'],
 
   /*
    ** Nuxt.js dev-modules
    */
-  devModules: [
+  buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
   ],
 
   /*
    ** Nuxt.js modules
    */
   modules: ['@nuxtjs/pwa', '@nuxtjs/dotenv'],
+
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.scss',
+  },
 
   /*
    ** Axios module configuration
@@ -92,64 +90,31 @@ module.exports = {
    *
    */
   env: {
-    APP_NAME: process.env.APP_NAME,
-    APP_VERSION: process.env.APP_VERSION,
-    NUCLEUS_APPID: process.env.NUCLEUS_APPID
+
   },
 
   /*
    ** Build configuration
    */
   build: {
-    /**
-     *
-     */
-    postcss: {
-      plugins: {
-        tailwindcss: './tailwind.config.js'
-      }
-    },
-
-    /**
-     *
-     */
-    terser: {
-      parallel: true,
-      cache: false,
-      sourceMap: true,
-      extractComments: {
-        filename: 'LICENSES'
-      },
-      terserOptions: {
-        output: {
-          comments: /^\**!|@preserve|@license|@cc_on/
-        }
-      }
+    babel: {
+      plugins: [
+        '@babel/plugin-proposal-class-properties',
+        '@babel/plugin-proposal-export-default-from',
+        '@babel/plugin-proposal-optional-chaining',
+      ],
     },
 
     /*
      ** You can extend webpack config here
      */
-    extend(config, { isClient, isDev }) {
-      if (isDev) {
-        config.devtool = isClient ? 'source-map' : 'inline-source-map'
-
-        // const RollbarSourceMapPlugin = require('rollbar-sourcemap-webpack-plugin')
-        /*
-        config.plugins.push(
-          new RollbarSourceMapPlugin({
-            accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
-            version: process.env.npm_package_version,
-            publicPath: source => {
-              console.log(source)
-              return `@/${source}`
-            }
-          })
-        )
-        */
+    /* eslint-disable no-param-reassign */
+    extend(config, ctx) {
+      if (ctx.isDev) {
+        config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
       } else {
         config.output.publicPath = './_nuxt/'
       }
-    }
-  }
+    },
+  },
 }

@@ -19,13 +19,13 @@ const path = require('path')
 const pkg = require('../package.json')
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN
+  auth: process.env.GITHUB_TOKEN,
 })
 
 const S3Client = new AWS.S3({
   accessKeyId: process.env.S3_ACCESS_KEY_ID,
   secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-  endpoint: 'https://sfo2.digitaloceanspaces.com'
+  endpoint: 'https://sfo2.digitaloceanspaces.com',
 })
 
 function getOS() {
@@ -71,7 +71,7 @@ async function getGithubReleaseUrl() {
     response = await octokit.repos.getReleaseByTag({
       owner: 'private-dreamnet',
       repo: 'dreamtime',
-      tag: tagName
+      tag: tagName,
     })
   } catch (err) {
     if (err.status !== 404) {
@@ -87,7 +87,7 @@ async function getGithubReleaseUrl() {
         tag_name: tagName,
         name: version,
         prerelease: true,
-        draft: false
+        draft: false,
       })
     } catch (err) {
       console.log(err)
@@ -105,7 +105,7 @@ function uploadToS3(filePath, fileName) {
     {
       Bucket: 'dreamnet-cdn',
       Key: `releases/dreamtime/${tagName}/${fileName}`,
-      Body: fs.createReadStream(filePath)
+      Body: fs.createReadStream(filePath),
     },
     (err, response) => {
       if (err) {
@@ -114,7 +114,7 @@ function uploadToS3(filePath, fileName) {
       }
 
       deferred.resolve(response)
-    }
+    },
   )
 
   return deferred.promise
@@ -128,10 +128,10 @@ async function uploadToGithub(filePath, fileName) {
     url,
     headers: {
       'content-length': stats.size,
-      'content-type': mime.lookup(filePath)
+      'content-type': mime.lookup(filePath),
     },
     name: fileName,
-    file: fs.createReadStream(filePath)
+    file: fs.createReadStream(filePath),
   })
 
   return response

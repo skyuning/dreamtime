@@ -1,5 +1,5 @@
 <template>
-  <a href="#" class="c-app-external-link" @click.prevent="openExternal">
+  <a href="#" class="c-app-external-link" @click.prevent="open">
     <slot />
   </a>
 </template>
@@ -9,16 +9,15 @@ export default {
   props: {
     href: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
 
   methods: {
-    openExternal() {
+    open() {
       $nucleus.track('EXTERNAL_LINK', { href: this.href })
       $tools.shell.openExternal(this.href)
-    }
-  }
+    },
+  },
 }
 </script>
-

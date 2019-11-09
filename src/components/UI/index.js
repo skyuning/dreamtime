@@ -15,9 +15,16 @@ import ExternalLink from './AppExternalLink'
 import Update from './AppUpdate'
 import SectionItem from './BoxSectionItem'
 import AppPhoto from './AppPhoto'
+import AppHelp from './AppHelp'
+import AppNews from './AppNews'
+import BoxItem from './BoxItem'
 
 Vue.component('app-title', Title)
 Vue.component('app-external-link', ExternalLink)
+Vue.component('e-link', ExternalLink)
 Vue.component('app-update', Update)
 Vue.component('app-photo', AppPhoto)
 Vue.component('box-section-item', SectionItem)
+Vue.component('app-help', AppHelp)
+Vue.component('app-news', AppNews)
+Vue.component('box-item', BoxItem)

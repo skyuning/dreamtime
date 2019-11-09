@@ -1,4 +1,7 @@
-const { AppError, settings, nucleus, rollbar } = require('./modules')
+const {
+  AppError, settings, nucleus, rollbar,
+} = require('./modules')
+const DreamLinkNetwork = require('./dln')
 const tools = require('./tools')
 
 // Custom Error
@@ -14,6 +17,10 @@ window.$nucleus = nucleus
 // Error reporting
 // https://docs.rollbar.com/docs/nodejs
 window.$rollbar = rollbar
+
+window.$engine = {
+  network: DreamLinkNetwork,
+}
 
 // Tools
 window.$tools = tools

@@ -29,7 +29,7 @@ export default class Photo {
 
     // Cropped file, this is the photo cropped to 512x512
     this.croppedFile = File.fromPath(
-      $tools.paths.getCropped(`${this.uuid}.png`)
+      $tools.paths.getCropped(`${this.uuid}.png`),
     )
 
     // Transformation Preferences
@@ -45,14 +45,14 @@ export default class Photo {
           .then(() => {
             cb(null)
           })
-          .catch(err => {
+          .catch((err) => {
             cb(err)
           })
 
         return {
           cancel: () => {
             job.cancel()
-          }
+          },
         }
       },
       {
@@ -62,8 +62,8 @@ export default class Photo {
           $settings.processing.device === 'GPU' ? 60 * 1000 : 300 * 1000,
         afterProcessDelay: 1000,
         batchSize: 1,
-        store: new MemoryStore()
-      }
+        store: new MemoryStore(),
+      },
     )
 
     this.queue.on('drain', () => {
@@ -82,6 +82,7 @@ export default class Photo {
 
     this.queue.on('task_finish', (jobId, job, stats) => {
       if (_.isNil(job)) {
+        // eslint-disable-next-line no-param-reassign
         job = this.getJobById(jobId)
       }
 
@@ -161,7 +162,7 @@ export default class Photo {
 
     if (!activeWindow.isFocused() && $settings.notifications.allRuns) {
       const notification = new Notification(`💭 All runs have finished`, {
-        body: 'Now you can save all the dreams you like'
+        body: 'Now you can save all the dreams you like',
       })
 
       notification.onclick = () => {
@@ -188,9 +189,9 @@ export default class Photo {
     }
 
     if (
-      file.mimetype !== 'image/jpeg' &&
-      file.mimetype !== 'image/png' &&
-      file.mimetype !== 'image/gif'
+      file.mimetype !== 'image/jpeg'
+      && file.mimetype !== 'image/png'
+      && file.mimetype !== 'image/gif'
     ) {
       return 'The selected file is not a valid photo. Only JPEG, PNG or GIF.'
     }
@@ -252,7 +253,7 @@ export default class Photo {
     }
 
     debug(
-      `Preparing the transformation for ${this.preferences.executions} jobs`
+      `Preparing the transformation for ${this.preferences.executions} jobs`,
     )
 
     this.onStart()
@@ -273,7 +274,7 @@ export default class Photo {
       return
     }
 
-    this.jobs.forEach(job => {
+    this.jobs.forEach((job) => {
       this.queue.cancel(job.id)
     })
 

@@ -2,13 +2,18 @@
 const debug = require('debug').default('app:modules:app')
 
 export default {
+  name: process.env.APP_NAME,
+
+  version: process.env.APP_VERSION,
+
+  status: process.env.APP_STATUS,
+
+  settings: {},
+
   /**
    *
    */
   init() {
-    this.name = process.env.APP_NAME
-    this.version = process.env.APP_VERSION
-    this.status = process.env.APP_STATUS
     this.settings = $nucleus
-  }
+  },
 }

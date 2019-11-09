@@ -3,18 +3,24 @@
     <div class="crop-help">
       <section class="box">
         <div class="buttons">
-          <nuxt-link to="/" class="button is-danger">Cancel</nuxt-link>
+          <nuxt-link to="/" class="button is-danger">
+            Cancel
+          </nuxt-link>
           <button class="button" @click.prevent="togglePreferences">
             <span v-if="!isPreferencesVisible">Preferences</span>
             <span v-else>Information</span>
           </button>
-          <button class="button is-success" @click.prevent="crop">Nudify!</button>
+          <button class="button is-success" @click.prevent="crop">
+            Nudify!
+          </button>
         </div>
       </section>
 
       <div v-if="!isPreferencesVisible">
         <section class="box">
-          <p class="box-title">📷 Photo cropping</p>
+          <p class="box-title">
+            📷 Photo cropping
+          </p>
 
           <p class="help-text">
             To be able to generate the dream correctly it is necessary to resize your photo to the size of 512x512
@@ -31,12 +37,14 @@
 
         <section class="box">
           <label for="is-cropped">
-            <input id="is-cropped" v-model="isCropped" type="checkbox" /> My photo is already the size of 512x512, do not crop. <span v-tooltip="'Select this option to ignore the cropping tool on the right and pass the original photo directly to the transformation algorithm.'" class="underline text-sm">?</span>
+            <input id="is-cropped" v-model="isCropped" type="checkbox"> My photo is already the size of 512x512, do not crop. <span v-tooltip="'Select this option to ignore the cropping tool on the right and pass the original photo directly to the transformation algorithm.'" class="underline text-sm">?</span>
           </label>
         </section>
 
         <section class="box">
-          <p class="box-title">🕵️‍️ How to obtain better results?</p>
+          <p class="box-title">
+            🕵️‍️ How to obtain better results?
+          </p>
           <p class="help-text">
             <ul>
               <li>Only one person should appear in the photo.</li>
@@ -51,7 +59,9 @@
 
       <div v-else>
         <div class="notification">
-          These preferences will only be applied to the current photo, you can change the global preferences in <nuxt-link to="/system/settings/preferences">Settings</nuxt-link>.
+          These preferences will only be applied to the current photo, you can change the global preferences in <nuxt-link to="/system/settings/preferences">
+            Settings
+          </nuxt-link>.
         </div>
 
         <!-- Preferences -->
@@ -76,13 +86,13 @@ export default {
     cropper: undefined,
 
     isCropped: false,
-    isPreferencesVisible: false
+    isPreferencesVisible: false,
   }),
 
   computed: {
     photo() {
       return this.$nudify.photo
-    }
+    },
   },
 
   mounted() {
@@ -109,7 +119,7 @@ export default {
         guides: false,
         highlight: false,
         autoCropArea: 0.1,
-        wheelZoomRatio: 0.03
+        wheelZoomRatio: 0.03,
       })
 
       const dataURL = await this.photo.getSourceFile().readAsDataURL()
@@ -143,7 +153,7 @@ export default {
           maxHeight: 512,
           fillColor: 'white',
           imageSmoothingEnabled: true,
-          imageSmoothingQuality: 'high'
+          imageSmoothingQuality: 'high',
         })
 
         await $tools.crop(this.photo, canvas)
@@ -165,8 +175,8 @@ export default {
      */
     togglePreferences() {
       this.isPreferencesVisible = !this.isPreferencesVisible
-    }
-  }
+    },
+  },
 }
 </script>
 

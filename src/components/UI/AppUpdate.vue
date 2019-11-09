@@ -1,65 +1,74 @@
 <template>
-  <!-- Cannot update, only show the version... -->
-  <box-section-item
+  <!-- Cannot update -->
+  <box-item
     v-if="!updater.enabled"
     :label="updater.getCurrentVersion()"
-    icon="🌐" />
+    icon="globe" />
 
   <!-- Updated! -->
-  <box-section-item
+  <box-item
     v-else-if="!updater.available"
-    :label="`${projectTitle} it's updated!`"
-    :description="`v${updater.getCurrentVersion()}`"
-    icon="🌐" />
+    :label="`${projectTitle} is up to date.`"
+    :description="`Version ${$app.version}`"
+    icon="check-circle" />
 
   <!-- Update available -->
-  <box-section-item
+  <box-item
     v-else-if="!updater.updating.active"
     :label="`Update available: ${updater.latest.tag_name}`"
     description="Click 'Update' to start the automatic update!"
     icon="🌐"
     class="update-item">
-    <button type="button" class="button is-sm" @click.prevent="updater.download()">Update</button>
-    <app-external-link v-tooltip="'Download and install the update manually.'" :href="downloadURL" class="button is-sm">Download</app-external-link>
-    <button v-tooltip="'Open download folder, if you have already downloaded the update you can find it here.'" type="button" class="button is-sm" @click.prevent="openDownload">Folder</button>
-  </box-section-item>
+    <button type="button" class="button is-sm" @click.prevent="updater.download()">
+      Update
+    </button>
+    <app-external-link v-tooltip="'Download and install the update manually.'" :href="downloadURL" class="button is-sm">
+      Download
+    </app-external-link>
+    <button v-tooltip="'Open download folder, if you have already downloaded the update you can find it here.'" type="button" class="button is-sm" @click.prevent="openDownload">
+      Folder
+    </button>
+  </box-item>
 
   <!-- Updating... -->
-  <box-section-item
+  <box-item
     v-else
     :label="updater.updating.text"
     icon="🌐">
     <template slot="description">
-      <p class="item-description"><strong>{{ updater.updating.progress | progress }}</strong> - {{ updater.updating.mbWritten | size }}/{{ updater.updating.mbTotal | size }} MB - (Please do not close the program or leave this section)</p>
+      <p class="item-description">
+        <strong>{{ updater.updating.progress | progress }}</strong> - {{ updater.updating.mbWritten | size }}/{{ updater.updating.mbTotal | size }} MB - (Please do not close the program or leave this section)
+      </p>
     </template>
 
-    <button type="button" class="button is-danger is-sm" @click.prevent="updater.cancel()">Cancel</button>
-  </box-section-item>
+    <button type="button" class="button is-danger is-sm" @click.prevent="updater.cancel()">
+      Cancel
+    </button>
+  </box-item>
 </template>
 
 <script>
 export default {
   filters: {
     progress(value) {
-      value = (value * 100).toFixed(2)
-      // value = Math.round(value * 100)
-      return `${value}%`
+      const percent = (value * 100).toFixed(2)
+      return `${percent}%`
     },
 
     size(value) {
       return value.toFixed(2)
-    }
+    },
   },
   props: {
     project: {
       type: String,
-      required: true
+      required: true,
     },
 
     projectTitle: {
       type: String,
-      default: 'Project'
-    }
+      default: 'Project',
+    },
   },
 
   computed: {
@@ -69,7 +78,7 @@ export default {
 
     downloadURL() {
       return this.updater.getUpdateDownloadURLs()[0]
-    }
+    },
   },
 
   beforeDestroy() {
@@ -79,8 +88,8 @@ export default {
   methods: {
     openDownload() {
       $tools.shell.openItem($tools.paths.get('downloads'))
-    }
-  }
+    },
+  },
 }
 </script>
 

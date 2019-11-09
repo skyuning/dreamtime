@@ -34,15 +34,15 @@ export default class {
     this.downloadBus = undefined
 
     this.current = {
-      tag_name: '0.0.0'
+      tag_name: '0.0.0',
     }
 
     this.latest = {
-      tag_name: '0.0.0'
+      tag_name: '0.0.0',
     }
 
     this.http = axios.create({
-      baseURL: API_URL
+      baseURL: API_URL,
     })
   }
 
@@ -90,13 +90,13 @@ export default class {
     const platform = $tools.utils.platform({
       macos: 'macos',
       windows: 'windows',
-      linux: 'ubuntu'
+      linux: 'ubuntu',
     })
 
     const extension = $tools.utils.platform({
       macos: '.dmg',
       windows: '.exe',
-      linux: '.deb'
+      linux: '.deb',
     })
 
     return `${this.getTitle()}-${
@@ -112,11 +112,11 @@ export default class {
       // CDN
       `${$nucleus.urls.cdn}/releases/${this.getName()}/v${
         this.latest.tag_name
-      }/${this.getUpdateFileName()}`
+      }/${this.getUpdateFileName()}`,
     ]
 
     const asset = _.find(this.latest.assets, {
-      name: this.getUpdateFileName()
+      name: this.getUpdateFileName(),
     })
 
     if (!_.isNil(asset)) {
@@ -152,7 +152,7 @@ export default class {
 
       progress: 0,
       mbWritten: 0,
-      mbTotal: 0
+      mbTotal: 0,
     }
   }
 
@@ -178,17 +178,19 @@ export default class {
 
       this.enabled = true
 
+      /*
       debug(`${this.getTitle()} - Update provider initialized!`, {
         provider: this,
         name: this.getName(),
         title: this.getTitle(),
         currentVersion: this.getCurrentVersion(),
         fileName: this.getUpdateFileName(),
-        downloadURLs: this.getUpdateDownloadURLs()
+        downloadURLs: this.getUpdateDownloadURLs(),
       })
+      */
     } catch (err) {
       $rollbar.warn(err, {
-        project: this.getTitle()
+        project: this.getTitle(),
       })
 
       console.warn(`${this.getTitle()}: Error at fetch releases`, err)
@@ -202,13 +204,13 @@ export default class {
    */
   async fetchFromAPI() {
     const response = await this.http.get(
-      `${this.getGithubRepository()}/releases`
+      `${this.getGithubRepository()}/releases`,
     )
 
     // Stable versions only
     const releases = _.filter(response.data, {
       draft: false,
-      prerelease: false
+      prerelease: false,
     })
 
     if (releases.length === 0) {
@@ -237,7 +239,7 @@ export default class {
       swal({
         icon: 'error',
         title: 'Update failed',
-        text: `Please verify that you are connected to the Internet and that ${dream.name} has permission to connect.`
+        text: `Please verify that you are connected to the Internet and that ${dream.name} has permission to connect.`,
       })
 
       return false
@@ -278,7 +280,7 @@ export default class {
     swal({
       icon: 'error',
       title: 'Update failed',
-      text: `There was a problem trying to download the update, please verify that you are connected to the Internet. If the problem persists try to configure or temporarily disable your Firewall/Antivirus/VPN.`
+      text: `There was a problem trying to download the update, please verify that you are connected to the Internet. If the problem persists try to configure or temporarily disable your Firewall/Antivirus/VPN.`,
     })
 
     this._resetUpdating()
@@ -306,7 +308,7 @@ export default class {
 
     this.downloadBus.on('end', (filePath) => {
       debug('Download finished!', {
-        filePath
+        filePath,
       })
 
       this.downloadBus = undefined
@@ -345,5 +347,5 @@ export default class {
   /**
    * Send a notification indicating update available
    */
-  sendNotification() {}
+  sendNotification() { }
 }

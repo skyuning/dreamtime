@@ -1,0 +1,73 @@
+/*
+ * Filename: c:\src\dream\apps\dreamtime\src\electron\scripts\settings\old.txt
+ * Path: c:\src\dream\apps\dreamtime\src
+ * Created Date: Saturday, November 2nd 2019, 2:51:53 am
+ * Author: Ivan Bravo Bravo <ivan@dreamnet.tech>
+ *
+ * Copyright (c) 2019 DreamNet
+ */
+const graphics = await system.graphics()
+return {
+      version: 3,
+      welcome: true,
+      user: uuid(),
+
+      processing: {
+        device: graphics.length > 0 ? 'GPU' : 'CPU',
+        gpus: [0],
+        usePython: process.env.NODE_ENV === 'development',
+      },
+
+      preferences: {
+        boobs: {
+          size: '1',
+          randomize: true,
+          progressive: true,
+        },
+        areola: {
+          size: '1',
+          randomize: false,
+          progressive: true,
+        },
+        nipple: {
+          size: '1',
+          randomize: false,
+          progressive: true,
+        },
+        vagina: {
+          size: '0.75',
+          randomize: true,
+          progressive: true,
+        },
+        pubicHair: {
+          size: '1',
+          randomize: true,
+          progressive: true,
+        },
+
+        executions: 1,
+        randomizePreferences: false,
+        progressivePreferences: false,
+
+        useWaifu: false, // weebs out 😡👉🚪
+        useRestoration: true,
+        useCustomMask: false,
+      },
+
+      notifications: {
+        run: false,
+        allRuns: true,
+        update: true,
+      },
+
+      folders: {
+        cropped: tools.paths.get('temp'),
+        models: tools.paths.get('userData', 'models'),
+        masks: tools.paths.get('userData', 'masks'),
+        cli: tools.paths.getRoot('cli'),
+      },
+
+      telemetry: {
+        enabled: true,
+      },
+    }

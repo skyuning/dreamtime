@@ -2,11 +2,11 @@
   <div class="home">
     <app-title>
       <h1 class="title">
-        📷 Nudify: It's {{ $dream.name }}
+        Fast Nudify.
       </h1>
 
       <h3 class="subtitle">
-        Select a photo and have a good dream
+        Select a photo and have a good dream.
       </h3>
     </app-title>
 
@@ -26,21 +26,15 @@ export default {
   computed: {
     alert() {
       return $nucleus.isEnabled ? $nucleus.alerts.index : undefined
-    }
+    },
   },
 
-  created() {}
+  created() {},
 }
 </script>
 
 <style lang="scss">
 .home {
-  .home-wip {
-    @apply flex flex-col justify-center items-center;
 
-    a {
-      @apply text-primary underline;
-    }
-  }
 }
 </style>

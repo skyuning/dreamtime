@@ -1,47 +1,26 @@
 <template>
-  <div class="layout-navbar">
-    <div class="navbar" :class="{ 'is-active': isActive }">
-      <!-- Welcome! -->
-      <div class="navbar-header">
-        <h1 class="header-title">
-          {{ $dream.name }}
-        </h1>
+  <div class="layout__menu">
+    <!-- App Navigation -->
+    <section class="layout__menu__section">
+      <nav class="layout__menu__nav">
+        <nuxt-link to="/system/about" class="layout__menu__nav__item">
+          Mariana
+        </nuxt-link>
 
-        <h3 class="header-greetings">
-          {{ greetings }}
-        </h3>
-      </div>
+        <nuxt-link to="/system/settings/processing" class="layout__menu__nav__item">
+          Andrea
+        </nuxt-link>
 
-      <!-- App Navigation -->
-      <section class="navbar-section">
-        <nav class="navbar-items">
-          <nuxt-link v-if="$platform.requirements.all" to="/" class="navbar-item">
-            <span class="icon">📷</span>
-            <span>Nudify</span>
-          </nuxt-link>
+        <nuxt-link to="/system/settings/processing" class="layout__menu__nav__item">
+          Jennifer
+        </nuxt-link>
 
-          <nuxt-link to="/system/about" class="navbar-item">
-            <span class="icon">🌌</span>
-            <span>About</span>
-          </nuxt-link>
-
-          <nuxt-link to="/system/settings/processing" class="navbar-item">
-            <span class="icon">🔧</span>
-            <span>Settings</span>
-          </nuxt-link>
-        </nav>
-      </section>
-
-      <!-- Developer Navigation -->
-      <section v-if="isDev" class="navbar-section">
-        <nav class="navbar-items">
-          <a href="#" class="navbar-item" @click.prevent="testBug">
-            <span class="icon">🐛</span>
-            <span>I am a error!</span>
-          </a>
-        </nav>
-      </section>
-    </div>
+        <nuxt-link to="/system/settings/processing" class="button">
+          <!--<font-awesome-icon icon="plus-circle" />-->
+          Add Model
+        </nuxt-link>
+      </nav>
+    </section>
   </div>
 </template>
 
@@ -73,16 +52,16 @@ export default {
     },
 
     isActive() {
-      return $settings._settings.welcome !== true
-    }
+      return $settings.payload.welcome !== true
+    },
   },
 
   methods: {
     testBug() {
       $tools.testError()
       throw new Error('wow much error')
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -109,22 +88,9 @@ export default {
   }
 }
 
-.layout-navbar {
-  @apply pb-6 shadow h-screen bg-dark relative;
+.layout__menu {
+  @apply py-3 shadow bg-dark-500 relative;
   width: 200px;
-
-  .navbar {
-    @apply absolute top-0 bottom-0;
-    left: -200px;
-    width: inherit;
-
-    &.is-active {
-      animation-name: navShowAnim;
-      animation-fill-mode: forwards;
-      animation-duration: 0.5s;
-      animation-timing-function: ease-in-out;
-    }
-  }
 
   .navbar-header {
     @apply mb-5 text-gray-300 flex flex-col items-center justify-center;
@@ -162,7 +128,7 @@ export default {
     }
   }
 
-  .navbar-section {
+  .layout__menu__section {
     @apply mb-5;
   }
 
@@ -170,9 +136,9 @@ export default {
     @apply text-center font-bold;
   }
 
-  .navbar-items {
-    .navbar-item {
-      @apply border-l-4 border-transparent pl-4 font-semibold flex items-center;
+  .layout__menu__nav {
+    .layout__menu__nav__item {
+      @apply border-r-4 border-transparent pl-4 font-semibold flex items-center;
       height: 50px;
       transition: all 0.1s ease-in-out;
 

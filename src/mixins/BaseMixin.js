@@ -15,17 +15,15 @@ export default {
         }
 
         tippy(el, settings)
-      }
-    }
+      },
+    },
   },
 
   filters: {},
 
   data: () => ({
-    // $_dream: dream,
-
     $nudify: nudify,
     $updater: updater,
-    $settings
-  })
+    $settings,
+  }),
 }

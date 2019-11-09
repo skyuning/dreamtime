@@ -1,37 +1,69 @@
 <template>
-  <div class="c-nudity-upload">
+  <div class="c-nudity-uploader">
     <!-- Dropzone -->
     <div
-      class="upload-dropzone"
+      class="uploader__dropzone"
       :class="{'is-dragging': isDraggingFile}"
       @dragenter="onDragEnter"
       @dragover="onDragOver"
       @dragleave="onDragLeave"
       @drop="onDrop">
-      <p class="dropzone-hint">👇 Drop the photo here!</p>
+      <p class="dropzone-hint">
+        📷 Drop the photo or folder here!
+      </p>
     </div>
 
-    <!-- Hidden input -->
-    <input
-      v-show="false"
-      ref="photo"
-      type="file"
-      accept="image/jpeg, image/png"
-      @change="onPhotoSelected" />
+    <div class="uploader__alt">
+      <!-- Computer File -->
+      <div class="box">
+        <div class="box__header">
+          <h2>Computer File</h2>
+          <h3>Select a file from your computer.</h3>
+        </div>
 
-    <div class="box py-5">
-      <div class="upload-url">
-        <input v-model="webAddress" type="url" class="input" placeholder="🌍 or enter a web address..." />
+        <div class="box__content">
+          <input
+            v-show="false"
+            ref="photo"
+            type="file"
+            accept="image/jpeg, image/png"
+            @change="onPhotoSelected">
 
-        <button class="button" @click="onURL">
-          Go!
-        </button>
+          <button class="button" @click.prevent="$refs.photo.click()">
+            📂 open a photo...
+          </button>
+        </div>
       </div>
 
-      <!-- Action button -->
-      <button class="button" @click.prevent="$refs.photo.click()">
-        📂 or open a photo...
-      </button>
+      <!-- Computer Folder -->
+      <div class="box">
+        <div class="box__header">
+          <h2>Computer Folder</h2>
+          <h3>All valid photos in the folder will be automatically resized and processed.</h3>
+        </div>
+
+        <div class="box__content">
+          <button class="button" @click.prevent="openFolder">
+            📂 import folder...
+          </button>
+        </div>
+      </div>
+
+      <!-- Web Address -->
+      <div class="box">
+        <div class="box__header">
+          <h2>Web Address</h2>
+          <app-help>It must be the direct web address to a photo and must end with the jpg, png or gif format.</app-help>
+        </div>
+
+        <div class="box__content">
+          <input v-model="webAddress" type="url" class="input" placeholder="https://">
+
+          <button class="button" @click="onURL">
+            Go!
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,15 +78,15 @@ export default {
   props: {
     model: {
       type: String,
-      default: undefined
-    }
+      default: undefined,
+    },
   },
 
   data: () => ({
     webAddress: '',
 
     // Indicates if the user is dragging a file in the window (we apply the drag style)
-    isDraggingFile: false
+    isDraggingFile: false,
   }),
 
   created() {
@@ -71,7 +103,7 @@ export default {
         swal(
           'Upload failed',
           'It seems that you have not selected a photo!',
-          'info'
+          'info',
         )
         return
       }
@@ -96,7 +128,7 @@ export default {
         text: 'We are downloading the photo and preparing it!',
         button: false,
         closeOnClickOutside: false,
-        closeOnEsc: false
+        closeOnEsc: false,
       })
 
       try {
@@ -112,7 +144,7 @@ export default {
           title: 'Upload failed',
           text: `An error has occurred downloading the photo or saving it in the temporary folder, please make sure you are connected to the Internet and that ${
             $dream.name
-          } has permissions to save files.`
+          } has permissions to save files.`,
         })
 
         $rollbar.warn(err)
@@ -139,6 +171,13 @@ export default {
 
       // It's time to crop the photo
       this.$router.push('/nudity/crop')
+    },
+
+    /**
+     *
+     */
+    openFolder() {
+
     },
 
     /**
@@ -214,30 +253,53 @@ export default {
         $nucleus.track('UPLOAD_DROP_URL')
         this.startFromURL(externalURL)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss">
-.c-nudity-upload {
-  @apply w-full
-    relative
-    text-center
-    mb-5;
+.c-nudity-uploader {
+  @apply w-full relative;
 
-  .upload-dropzone {
-    @apply flex
-      items-center
-      justify-center
-      bg-dark-400
-      rounded
-      border-transparent
-      border-2
-      border-dashed
-      mb-5;
+  .uploader__alt {
+    @apply flex flex-wrap;
 
-    height: 150px;
+    .box {
+      @apply flex flex-col;
+      width: 48%;
+      min-height: 200px;
+
+      &:not(:last-child) {
+        @apply mr-3;
+      }
+
+      .box__header {
+        h2 {
+          @apply text-lg font-bold;
+        }
+
+        h3 {
+          @apply text-sm mb-3 font-light;
+        }
+
+        .help {
+          @apply text-xs align-text-top font-bold underline;
+          cursor: help;
+        }
+      }
+
+      .box__content {
+        @apply flex-1 flex flex-col justify-center items-center;
+      }
+    }
+  }
+
+  .uploader__dropzone {
+    @apply flex items-center justify-center;
+    @apply bg-dark-400 mb-5;
+    @apply rounded border-2 border-dashed border-gray-600;
+    height: 200px;
     transition: all 0.1s linear;
 
     &.is-dragging {
@@ -280,5 +342,3 @@ export default {
   }
 }
 </style>
-
-

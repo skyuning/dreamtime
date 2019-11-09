@@ -1,11 +1,23 @@
 const _ = require('lodash')
 const path = require('path')
-const { api, is } = require('electron-utils')
+const { api, is, activeWindow } = require('electron-utils')
 const regedit = require('regedit')
 
 // const { download } = require('electron-dl')
 
 module.exports = {
+  minimize() {
+    return activeWindow().minimize()
+  },
+
+  maximize() {
+    return activeWindow().maximize()
+  },
+
+  close() {
+    return activeWindow().destroy()
+  },
+
   /**
    * Open the given file in the desktop's default manner.
    * https://electronjs.org/docs/api/shell#shellopenitemfullpath
@@ -55,18 +67,17 @@ module.exports = {
   hasWindowsMedia() {
     if (is.windows && !is.dev) {
       regedit.setExternalVBSLocation(
-        path.join(path.dirname(api.app.getPath('exe')), 'resources', 'vbs')
+        path.join(path.dirname(api.app.getPath('exe')), 'resources', 'vbs'),
       )
     }
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       if (!is.windows) {
         resolve(true)
         return
       }
 
-      const regKey =
-        'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Setup\\WindowsFeatures'
+      const regKey = 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Setup\\WindowsFeatures'
 
       regedit.list(regKey, (err, result) => {
         if (!_.isNil(err)) {
@@ -77,5 +88,5 @@ module.exports = {
         resolve(result[regKey].keys.includes('WindowsMediaVersion'))
       })
     })
-  }
+  },
 }

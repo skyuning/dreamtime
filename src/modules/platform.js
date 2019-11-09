@@ -29,12 +29,11 @@ export default {
       all: false,
       cli: this.hasCli(),
       checkpoints: this.hasCheckpoints(),
-      windowsMedia: await this.hasWindowsMedia()
+      windowsMedia: await this.hasWindowsMedia(),
     }
 
-    this.requirements.all =
-      this.requirements.cli &&
-      this.requirements.checkpoints /* &&
+    this.requirements.all = this.requirements.cli
+      && this.requirements.checkpoints /* &&
       this.requirements.windowsMedia */
 
     this.isLimited = this.getIsLimited()
@@ -50,7 +49,7 @@ export default {
     debug('Platform initialized!', {
       gpuDevices: this.gpuDevices,
       requirements: this.requirements,
-      isLimited: this.isLimited
+      isLimited: this.isLimited,
     })
   },
 
@@ -95,7 +94,7 @@ export default {
       'dreampower',
       'cli',
       'dreampower.dmg', // TODO: Verify that this is correct
-      'cli.dmg'
+      'cli.dmg',
     ]
 
     for (const bin of binaries) {
@@ -168,5 +167,5 @@ export default {
     const value = await $tools.shell.hasWindowsMedia()
 
     return value
-  }
+  },
 }

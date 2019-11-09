@@ -96,7 +96,7 @@ export default class extends Base {
       // CDN
       `${
         $nucleus.urls.cdn
-      }/releases/${this.getName()}/${this.getUpdateFileName()}`
+      }/releases/${this.getName()}/${this.getUpdateFileName()}`,
     ]
 
     return urls
@@ -121,7 +121,7 @@ export default class extends Base {
         swal({
           icon: 'error',
           title: 'Update failed',
-          text: `We tried to install the file located in the Downloads folder but an error has occurred. If this problem persists try to delete the file and download it again.`
+          text: `We tried to install the file located in the Downloads folder but an error has occurred. If this problem persists try to delete the file and download it again.`,
         })
 
         $rollbar.warn(err, { provider: this })
@@ -164,8 +164,8 @@ export default class extends Base {
     const notification = new Notification(
       `✨ Checkpoints ${this.latest.tag_name} available!`,
       {
-        body: 'A new version of the Checkpoints is available for download.'
-      }
+        body: 'A new version of the Checkpoints is available for download.',
+      },
     )
 
     notification.onclick = () => {
