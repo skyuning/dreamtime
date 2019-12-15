@@ -31,6 +31,7 @@ module.exports = {
   ],
   root: true,
   rules: {
+    "import/extensions": "off",
     "class-methods-use-this": "off",
     "comma-dangle": "warn",
     "import/default": "off",
